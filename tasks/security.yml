@@ -1,4 +1,7 @@
 ---
+#
+# Wolfgang Hotwagner updated this file on 19. April 2024
+#
 
 ## Here we are going to use self-signed certificates for Transport (Node-Node communication) & REST API layer
 ## Using searchguard offline TLS tool to create node & root certificates
@@ -73,10 +76,10 @@
       with_items:
         - "{{ os_conf_dir }}/root-ca.pem"
         - "{{ os_conf_dir }}/root-ca.key"
-        - "{{ os_conf_dir }}/{{ inventory_hostname }}.key"
-        - "{{ os_conf_dir }}/{{ inventory_hostname }}.pem"
-        - "{{ os_conf_dir }}/{{ inventory_hostname }}_http.key"
-        - "{{ os_conf_dir }}/{{ inventory_hostname }}_http.pem"
+        - "{{ os_conf_dir }}/{{ opensearch_hostname }}.key"
+        - "{{ os_conf_dir }}/{{ opensearch_hostname }}.pem"
+        - "{{ os_conf_dir }}/{{ opensearch_hostname }}_http.key"
+        - "{{ os_conf_dir }}/{{ opensearch_hostname }}_http.pem"
         - "{{ os_conf_dir }}/admin.key"
         - "{{ os_conf_dir }}/admin.pem"
 
@@ -120,10 +123,10 @@
   with_items:
     - root-ca.pem
     - root-ca.key
-    - "{{ inventory_hostname }}.key"
-    - "{{ inventory_hostname }}.pem"
-    - "{{ inventory_hostname }}_http.key"
-    - "{{ inventory_hostname }}_http.pem"
+    - "{{ opensearch_hostname }}.key"
+    - "{{ opensearch_hostname }}.pem"
+    - "{{ opensearch_hostname }}_http.key"
+    - "{{ opensearch_hostname }}_http.pem"
     - admin.key
     - admin.pem
   when: (configuration.changed and not iac_enable) or (iac_enable and force_update_cert_nodes_count | int > 0)
@@ -139,7 +142,7 @@
 
 - name: Security Plugin configuration | Copy the security configuration file 2 to cluster
   ansible.builtin.blockinfile:
-    block: "{{ lookup('file', '/tmp/opensearch-nodecerts/config/{{ inventory_hostname }}_elasticsearch_config_snippet.yml') }}"
+    block: "{{ lookup('file', '/tmp/opensearch-nodecerts/config/{{ opensearch_hostname }}_elasticsearch_config_snippet.yml') }}"
     dest: "{{ os_conf_dir }}/opensearch.yml"
     backup: true
     insertafter: EOF
@@ -192,7 +195,7 @@
 
 - name: Wait for opensearch to startup
   ansible.builtin.wait_for:
-    host: "{{ hostvars[inventory_hostname]['ip'] }}"
+    host: "{{ opensearch_hosts[opensearch_hostname]['ip'] }}"
     port: "{{ os_api_port }}"
     delay: 5
     connect_timeout: 1
@@ -285,7 +288,7 @@
     -key {{ os_conf_dir }}/admin.key
     -cd {{ os_sec_plugin_conf_path }}
     -nhnv -icl
-    -h {{ hostvars[inventory_hostname]['ip'] }}
+    -h {{ opensearch_hosts[opensearch_hostname]['ip'] }}
   environment:
     JAVA_HOME: "{{ os_home }}/jdk"
   run_once: true
@@ -299,7 +302,7 @@
     -key {{ os_conf_dir }}/admin.key
     -f {{ os_sec_plugin_conf_path }}/internal_users.yml
     -nhnv -icl
-    -h {{ hostvars[inventory_hostname]['ip'] }}
+    -h {{ opensearch_hosts[opensearch_hostname]['ip'] }}
   environment:
     JAVA_HOME: "{{ os_home }}/jdk"
   run_once: true

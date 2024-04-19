@@ -1,3 +1,4 @@
+{# Wolfgang Hotwagner updated this file on 19. April 2024 #}
 ca:
    root:
       dn: CN=root.ca.{{ domain_name }},OU=CA,O={{ domain_name }}\, Inc.,DC={{ domain_name }}
@@ -25,11 +26,11 @@ defaults:
 # Specify the nodes of your ES cluster here
 #
 nodes:
-{% for item in groups['os-cluster'] %}
+{% for item in opensearch_hosts %}
   - name: {{ item }}
     dn: CN={{ item }}.{{ domain_name }},OU=Ops,O={{ domain_name }}\, Inc.,DC={{ domain_name }}
     dns: {{ item }}.{{ domain_name }}
-    ip: {{ hostvars[item]['ip'] }}
+    ip: {{ opensearch_hosts[item]['ip'] }}
 {% endfor %}
 
 ###

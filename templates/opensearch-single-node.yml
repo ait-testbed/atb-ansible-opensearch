@@ -1,8 +1,10 @@
+{# Wolfgang Hotwagner updated this file on 19. April 2024 #}
+
 cluster.name: "{{ os_cluster_name }}"
 
-node.name: "{{ inventory_hostname }}"
+node.name: "{{ opensearch_hostname }}"
 
-network.host: "{{ hostvars[inventory_hostname]['ip'] }}"
+network.host: "{{ opensearch_hosts[opensearch_hostname]['ip'] }}"
 
 http.port: 9200
 

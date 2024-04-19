@@ -1,4 +1,7 @@
 ---
+#
+# Wolfgang Hotwagner updated this file on 19. April 2024
+#
 
 os_nodes: |-
         {% for item in groups['os-cluster'] -%}
@@ -11,6 +14,18 @@ os_master_nodes: |-
         {%- endfor %}
 
 populate_inventory_to_hosts_file: true
+
+xms_value: 2
+xmx_value: 2
+cert_valid_days: 730
+copy_custom_security_configs: false
+custom_security_plugin_configs:
+  - files/tenants.yml
+  - files/roles.yml
+  - files/roles_mapping.yml
+  - files/internal_users.yml
+iac_enable: false
+cluster_type: single-node
 
 os_home: /usr/share/opensearch
 os_conf_dir: /usr/share/opensearch/config

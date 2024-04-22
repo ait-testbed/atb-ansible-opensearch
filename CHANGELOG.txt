@@ -1,3 +1,10 @@
+Version: v1.0.1
+
+* Added `meta/main.yml`
+* Updated MAINTAINERS.md
+
+-- Wolfgang Hotwagner Mo, 22 April 2023 14:06:00 +0000
+
 Version: v1.0.0
 
 * Replaced hostvars and inventory by variable

@@ -1,3 +1,9 @@
+Version: v1.0.2
+
+* Make starting the service optional
+
+-- Wolfgang Hotwagner Mo, 22 April 2023 14:06:00 +0000
+
 Version: v1.0.1
 
 * Added `meta/main.yml`

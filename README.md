@@ -17,6 +17,11 @@ This role was tested on Ubuntu 22.04. Other linux distributions might work as we
 The original role sets the hostname and `/etc/hosts`. This fork does not set the hostname
 and requires another role for that like  https://github.com/ait-testbed/atb-ansible-hostname.
 
+### Minimum hardware requirements:
+
+- Memory: 4GB RAM or more
+- CPU: 2 cores or mroe
+
 # Configuration
 
 ```

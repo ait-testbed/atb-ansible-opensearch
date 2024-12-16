@@ -28,8 +28,8 @@ defaults:
 nodes:
 {% for item in opensearch_hosts %}
   - name: {{ item }}
-    dn: CN={{ item }}.{{ domain_name }},OU=Ops,O={{ domain_name }}\, Inc.,DC={{ domain_name }}
-    dns: {{ item }}.{{ domain_name }}
+    dn: CN={{ item }},OU=Ops,O={{ domain_name }}\, Inc.,DC={{ domain_name }}
+    dns: {{ item }}
     ip: {{ opensearch_hosts[item]['ip'] }}
 {% endfor %}
 

@@ -20,7 +20,7 @@ and requires another role for that like  https://github.com/ait-testbed/atb-ansi
 ### Minimum hardware requirements:
 
 - Memory: min. 8GB RAM or more
-- CPU: 2 cores or mroe
+- CPU: 2 cores or more
 
 # Configuration
 

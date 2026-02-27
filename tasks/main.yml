@@ -4,11 +4,18 @@
 # Wolfgang Hotwagner updated this file on 23. April 2024
 #
 
+####
+# Disabled because of following error:
+# Failed to import the required Python library (libselinux-python) on search's Python /usr/bin/python3. 
+# Please read the module documentation and install it in the appropriate location. 
+# If the required library is installed, but Ansible is using the wrong Python interpreter, 
+# please consult the documentation on ansible_python_interpreter
+###
 # Disabling for Amazon Linux 2 as selinux is disabled by default.
-- name: Disable the selinux
-  ansible.posix.selinux:
-    state: disabled
-  when: (ansible_distribution != "Ubuntu") and (ansible_distribution != "Amazon")
+# - name: Disable the selinux
+#  ansible.posix.selinux:
+#    state: disabled
+#  when: (ansible_distribution != "Ubuntu") and (ansible_distribution != "Amazon")
 
 - name: Tune the system settings
   ansible.builtin.import_tasks: tune.yml
